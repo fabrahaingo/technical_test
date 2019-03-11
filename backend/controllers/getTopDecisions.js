@@ -17,7 +17,6 @@ function getDecisionsFromDb(db, jurisdiction_name) {
     , [jurisdiction_name]).catch((err) => {
             console.log('Error in getDecisionFromDb() SQL request: ' + err.message)
         });
-        console.log(decisions);
         resolve(decisions);
     }).catch((err) => {
         console.log('Error in getDecision(): ' + err.message);
