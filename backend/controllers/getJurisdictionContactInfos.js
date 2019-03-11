@@ -1,6 +1,9 @@
 const { dbInit } = require('../models/dbInit');
 
 // Add verified value if not added before.
+// RESULTARRAY = unverified information
+// I = index in the array
+// VERIFIEDINFO = verified information
 function addVerifiedValue(resultArray, i, verifiedInfo) {
   return new Promise(async (resolve) => {
     verifiedInfo['verified'] = true;
@@ -11,7 +14,8 @@ function addVerifiedValue(resultArray, i, verifiedInfo) {
   })
 }
 
-// Check if object is empty
+// Check if object is empty.
+// OBJ = Object to check
 function isEmpty(obj) {
   return new Promise((resolve) => {
     for(var key in obj) {
@@ -24,7 +28,8 @@ function isEmpty(obj) {
   })
 }
 
-// Add verified value if possible. Return true if new value is needed.
+// Add verified value (first try).
+// => Returns true if a verified value is not in unverified array.
 function needVerifiedValue(verifiedInfo, value, valueObject) {
   return new Promise(async (resolve) => {
     if (verifiedInfo) {
@@ -47,7 +52,7 @@ function needVerifiedValue(verifiedInfo, value, valueObject) {
   });
 }
 
-// Get verified info from database
+// Get verified info from database.
 function getVerifiedInfo(db, key, jurisdiction_id) {
   return new Promise(async (resolve) => {
     const verifiedInfo = await db.get(`
@@ -92,7 +97,7 @@ function valuesToArray(obj, db, jurisdiction_id) {
   });
 }
 
-// Fill value array (ex: if info has many values) + get unverified info from database
+// Fill value array (ex: if info has many values) + get unverified info from database.
 function createValueArray(key, db, jurisdiction_id) {
   return new Promise(async resolve => {
     const valueObject = await db.get(`
